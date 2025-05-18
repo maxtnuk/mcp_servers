@@ -8,3 +8,8 @@ build:
 	docker buildx bake
 
 all: build gen_mcp_server_json
+
+apply_claude_for_mac: all
+	CONFIG_FILE="$HOME/Library/Application Support/Claude/claude_desktop_config.json"
+
+	scripts/claud_apply.sh
