@@ -1,0 +1,3 @@
+[submodule "mcp/arxiv-paper-mcp"]
+	path = mcp/arxiv-paper-mcp
+	url = https://github.com/daheepk/arxiv-paper-mcp.git
