@@ -10,3 +10,9 @@
 [submodule "mcp/geek-news"]
 	path = mcp/geek-news
 	url = https://github.com/the0807/GeekNews-MCP-Server.git
+[submodule "mcp/firecrawl"]
+	path = mcp/firecrawl
+	url = https://github.com/mendableai/firecrawl-mcp-server.git
+[submodule "mcp/paper-search"]
+	path = mcp/paper-search
+	url = https://github.com/openags/paper-search-mcp.git
