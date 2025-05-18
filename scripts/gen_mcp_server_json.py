@@ -8,6 +8,7 @@ app = typer.Typer()
 DEFAULT_BAKE_FILE = Path(__file__).parent.parent / "docker-bake.hcl"
 DEFAULT_ENVS_DIR = Path(__file__).parent.parent / "envs"
 DEFAULT_CONFIG_FILE = Path(__file__).parent / "mcp_config.json"
+DEFAULT_CUSTOM_FILE = Path(__file__).parent / "custom.json"
 
 
 def parse_env_file(env_path: Path):
@@ -32,6 +33,13 @@ def load_blacklist(config_path: Path):
     return set(config.get("blacklist", []))
 
 
+def load_custom(custom_path: Path):
+    if not custom_path.exists():
+        return {}
+    with custom_path.open() as f:
+        return json.load(f)
+
+
 @app.command()
 def main(
     bake_file: Path = typer.Option(DEFAULT_BAKE_FILE, help="Path to docker-bake.hcl"),
@@ -40,9 +48,11 @@ def main(
     config_file: Path = typer.Option(
         DEFAULT_CONFIG_FILE, help="Path to mcp_config.json"
     ),
+    custom_file: Path = typer.Option(DEFAULT_CUSTOM_FILE, help="Path to custom.json"),
     output: Path = typer.Option(None, help="Output JSON file (default: stdout"),
 ):
     blacklist = load_blacklist(config_file)
+    custom = load_custom(custom_file)
 
     with bake_file.open() as f:
         bake = hcl2.load(f)
@@ -97,6 +107,9 @@ def main(
             "args": args,
             "env": env_dict,
         }
+
+    # Merge custom.json (custom entries override generated ones)
+    mcp_servers.update(custom)
 
     output_dict = {"mcpServers": mcp_servers}
     json_str = json.dumps(output_dict, indent=2)
