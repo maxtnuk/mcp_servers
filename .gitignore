@@ -1,5 +1,5 @@
 .env
 .vscode
-scripts/custom.json
+config/custom.json
 # generated files
 docker-bake.hcl

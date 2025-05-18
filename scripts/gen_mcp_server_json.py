@@ -7,8 +7,8 @@ app = typer.Typer()
 
 DEFAULT_BAKE_FILE = Path(__file__).parent.parent / "docker-bake.hcl"
 DEFAULT_ENVS_DIR = Path(__file__).parent.parent / "envs"
-DEFAULT_CONFIG_FILE = Path(__file__).parent / "mcp_config.json"
-DEFAULT_CUSTOM_FILE = Path(__file__).parent / "custom.json"
+DEFAULT_CONFIG_FILE = Path(__file__).parent.parent / "config" / "mcp_config.json"
+DEFAULT_CUSTOM_FILE = Path(__file__).parent.parent / "config" / "custom.json"
 
 
 def parse_env_file(env_path: Path):
