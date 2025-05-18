@@ -51,6 +51,8 @@ def main(
         args = [
             "run",
             "-i",
+            "--name",
+            name,
             "--rm",
             image,
         ]
