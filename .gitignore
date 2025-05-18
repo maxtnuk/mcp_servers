@@ -1,2 +1,5 @@
 .env
 .vscode
+# generated files
+docker-bake.hcl
+server/docker-compose.yaml

@@ -35,29 +35,37 @@ def main(
     dockerfiles_base: Path = typer.Option(
         BASE_DIR, help="Base directory for Dockerfile contexts"
     ),
+    group_name: str = typer.Option(
+        "default", help="Group name to generate compose for"
+    ),
 ):
     with bake_file.open("r") as f:
         bake = hcl2.load(f)
 
     services = {}
 
-    # Parse group_targets
-    group = bake.get("group", [{}])[0]
-    group_default = group.get("default", [{}])[0]
-    group_targets = group_default.get("targets", [])
+    # Parse group_targets (group "name" { ... })
+    group_targets = []
+    for group_block in bake.get("group", []):
+        for each_group_name, group_val in group_block.items():
+            if each_group_name == group_name:
+                group_targets = group_val.get("targets", [])
+                break
+        if group_targets:
+            break
 
-    # Parse variables
+    # Parse variables (variable "TAG" { ... })
     variables = {}
     for v in bake.get("variable", []):
-        for k, val in v.items():
-            variables[k] = val[0].get("default", "")
+        for var_name, var_val in v.items():
+            variables[var_name] = var_val.get("default", "")
     tag = variables.get("TAG", "latest")
 
-    # Parse targets
+    # Parse targets (target "name" { ... })
     targets = {}
     for t in bake.get("target", []):
-        for name, val in t.items():
-            targets[name] = val[0]
+        for target_name, target_val in t.items():
+            targets[target_name] = target_val
 
     for target_name in group_targets:
         target = targets.get(target_name)
