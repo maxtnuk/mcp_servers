@@ -16,3 +16,12 @@
 [submodule "mcp/paper-search"]
 	path = mcp/paper-search
 	url = https://github.com/openags/paper-search-mcp.git
+[submodule "mcp/mermaid"]
+	path = mcp/mermaid
+	url = https://github.com/peng-shawn/mermaid-mcp-server.git
+[submodule "mcp/markdown-downloader"]
+	path = mcp/markdown-downloader
+	url = https://github.com/dazeb/markdown-downloader.git
+[submodule "mcp/powerpoint"]
+	path = mcp/powerpoint
+	url = https://github.com/GongRzhe/Office-PowerPoint-MCP-Server.git
