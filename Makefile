@@ -10,10 +10,3 @@ gen_mcp_server_json:
 build: 
 	python3 scripts/gen_bake_from_submodules.py
 	docker buildx bake
-
-deploy: build
-	python3 scripts/gen_compose_from_bake.py
-	cd deploy && docker compose up -d
-
-deploy_down:
-	cd deploy && docker compose down
