@@ -7,3 +7,6 @@
 [submodule "mcp/mcp-server-airbnb"]
 	path = mcp/mcp-server-airbnb
 	url = https://github.com/openbnb-org/mcp-server-airbnb.git
+[submodule "mcp/geek-news"]
+	path = mcp/geek-news
+	url = https://github.com/the0807/GeekNews-MCP-Server.git
