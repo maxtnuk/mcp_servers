@@ -7,6 +7,7 @@ app = typer.Typer()
 
 DEFAULT_BAKE_FILE = Path(__file__).parent.parent / "docker-bake.hcl"
 DEFAULT_ENVS_DIR = Path(__file__).parent.parent / "envs"
+DEFAULT_CONFIG_FILE = Path(__file__).parent / "mcp_config.json"
 
 
 def parse_env_file(env_path: Path):
@@ -23,13 +24,26 @@ def parse_env_file(env_path: Path):
     return env_dict
 
 
+def load_blacklist(config_path: Path):
+    if not config_path.exists():
+        return set()
+    with config_path.open() as f:
+        config = json.load(f)
+    return set(config.get("blacklist", []))
+
+
 @app.command()
 def main(
     bake_file: Path = typer.Option(DEFAULT_BAKE_FILE, help="Path to docker-bake.hcl"),
     group_name: str = typer.Option("default", help="Group name to use"),
     envs_dir: Path = typer.Option(DEFAULT_ENVS_DIR, help="Path to envs directory"),
-    output: Path = typer.Option(None, help="Output JSON file (default: stdout)"),
+    config_file: Path = typer.Option(
+        DEFAULT_CONFIG_FILE, help="Path to mcp_config.json"
+    ),
+    output: Path = typer.Option(None, help="Output JSON file (default: stdout"),
 ):
+    blacklist = load_blacklist(config_file)
+
     with bake_file.open() as f:
         bake = hcl2.load(f)
 
@@ -58,6 +72,8 @@ def main(
 
     mcp_servers = {}
     for name in group_targets:
+        if name in blacklist:
+            continue
         target = targets.get(name)
         if not target:
             continue

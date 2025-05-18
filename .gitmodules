@@ -4,3 +4,6 @@
 [submodule "mcp/mcp-discord"]
 	path = mcp/mcp-discord
 	url = https://github.com/barryyip0625/mcp-discord.git
+[submodule "mcp/mcp-server-airbnb"]
+	path = mcp/mcp-server-airbnb
+	url = https://github.com/openbnb-org/mcp-server-airbnb.git
