@@ -25,3 +25,6 @@
 [submodule "mcp/powerpoint"]
 	path = mcp/powerpoint
 	url = https://github.com/GongRzhe/Office-PowerPoint-MCP-Server.git
+[submodule "mcp/chart"]
+	path = mcp/chart
+	url = https://github.com/antvis/mcp-server-chart.git
