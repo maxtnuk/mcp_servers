@@ -50,9 +50,8 @@ def hcl_dump(data: Dict[str, Any]) -> str:
             lines.append(f'group "{group_name}" {{')
             for subk, subv in group_val.items():
                 if isinstance(subv, list):
-                    lines.append(
-                        f'    {subk} = [{", ".join([f"\"{i}\"" for i in subv])}]'
-                    )
+                    strings = [f'"{i}"' for i in subv]
+                    lines.append(f'    {subk} = [{", ".join(strings)}]')
                 else:
                     lines.append(f'    {subk} = "{subv}"')
             lines.append("}")
@@ -66,9 +65,8 @@ def hcl_dump(data: Dict[str, Any]) -> str:
             lines.append(f'target "{target_name}" {{')
             for subk, subv in target_val.items():
                 if isinstance(subv, list):
-                    lines.append(
-                        f'    {subk} = [{", ".join([f"\"{i}\"" for i in subv])}]'
-                    )
+                    strings = [f'"{i}"' for i in subv]
+                    lines.append(f'    {subk} = [{", ".join(strings)}]')
                 else:
                     lines.append(f'    {subk} = "{subv}"')
             lines.append("}")
