@@ -28,3 +28,6 @@
 [submodule "mcp/chart"]
 	path = mcp/chart
 	url = https://github.com/antvis/mcp-server-chart.git
+[submodule "mcp/think"]
+	path = mcp/think
+	url = https://github.com/PhillipRt/think-mcp-server.git
